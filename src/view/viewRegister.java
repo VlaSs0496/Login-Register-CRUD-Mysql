@@ -4,6 +4,10 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.SQLUser;
+import model.User;
+
 /**
  *
  * @author vladi
@@ -132,6 +136,11 @@ public class viewRegister extends javax.swing.JFrame {
 
         btnRegister.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,6 +175,21 @@ public class viewRegister extends javax.swing.JFrame {
     private void jName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jName2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jName2ActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+       User user = new User();
+       SQLUser sqlUser = new SQLUser();
+       String pass = new String(jPassword.getPassword());
+       String pass2 = new String(jPassword2.getPassword());
+       
+       if (jUser1.getText().equals("") || pass.equals("") || pass2.equals("") || jName2.getText().equals("") || jEmail.getText().equals("")){
+           JOptionPane.showInputDialog(null, "MISS");
+       }else{
+           if (pass.equals(pass2)){
+               
+           }
+       }
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
