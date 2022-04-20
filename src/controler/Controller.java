@@ -5,15 +5,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.SQLUser;
 import model.User;
+import view.Main;
+import view.Login;
 import view.viewRegister;
 
 public class Controller implements ActionListener {
 
     private viewRegister viewR;
+    private Login loginR;
+    private Main mainL;
     private User user;
     private SQLUser sqlUser;
 
-    public Controller(viewRegister viewR, User user, SQLUser sqlUser) {
+    public Controller(Login loginR,Main mainL,viewRegister viewR, User user, SQLUser sqlUser) {
         this.viewR = viewR;
         this.user = user;
         this.sqlUser = sqlUser;
@@ -23,6 +27,7 @@ public class Controller implements ActionListener {
     public void star() {
         viewR.setTitle("REGISTER");
         viewR.setLocationRelativeTo(null);
+        
     }
 
     public void clearBox() {
@@ -44,19 +49,24 @@ public class Controller implements ActionListener {
             } else {
                 if (pass.equals(pass2)) {
                     if (sqlUser.verificationUser(viewR.jUser1.getText()) == 0) {
-                        user.setNameUser(viewR.jUser1.getText());
-                        user.setPassword(pass);
-                        user.setName(viewR.jName2.getText());
-                        user.setEmail(viewR.jEmail.getText());
-                        user.setIdType_user(1);
+                        if (sqlUser.verificacionEmail(viewR.jEmail.getText())) {
+                            user.setNameUser(viewR.jUser1.getText());
+                            user.setPassword(pass);
+                            user.setName(viewR.jName2.getText());
+                            user.setEmail(viewR.jEmail.getText());
+                            user.setIdType_user(2);
 
-                        if (sqlUser.register(user)) {
-                            JOptionPane.showConfirmDialog(null, "Successful registration");
-                            clearBox();
-                        } else {
-                            JOptionPane.showConfirmDialog(null, "Error");
+                            if (sqlUser.register(user)) {
+                                JOptionPane.showConfirmDialog(null, "Successful registration");
+                                clearBox();
+                            } else {
+                                JOptionPane.showConfirmDialog(null, "Error");
+                            }
+                        }else{
+                            JOptionPane.showConfirmDialog(null, "Email error");
                         }
-                    }else{
+                        
+                    } else {
                         JOptionPane.showConfirmDialog(null, "User already exists");
                     }
 
@@ -67,4 +77,3 @@ public class Controller implements ActionListener {
         }
     }
 }
-
